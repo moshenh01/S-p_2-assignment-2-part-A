@@ -6,32 +6,91 @@ using namespace ariel;
 
 Player :: Player(string name)
 {
-   
+    this->name = name;
+    
+    this->handCards = vector<Card>();
+    this->takenCards = vector<Card>();
+    this->isWinner = false;
+    this->hasCards = false;
+    this->numOfWins = 0;
 
-   
 };
+
 
 
 
 int Player :: stacksize()
 {
-    return 0;
+    return this->handCards.size();
 };
 
 int Player :: cardesTaken()
 {
-   return this->mCardesTaken;
+    return ((this->takenCards.size())/2);
 };
 
 
 
-void Player :: addCard(const Card& card)
+void Player :: addCard( Card card)
 {
-   
+    this->handCards.push_back(card);
+};
+
+void Player :: addTakenCard(const Card& card)
+{
+    this->takenCards.push_back(card);
 };
 
 
 Card Player :: getTopCard()
 {
-    return Card();
+    if(this->handCards.size() == 1)
+    {
+        hasCards = false;
+        std::cout << "No cards in hand!" << std::endl;
+        Card card = this->handCards.back();
+        this->handCards.pop_back();
+        return card; 
+    }
+    else{
+        Card card = this->handCards.back();
+        this->handCards.pop_back();
+        return card;
+    }
 };
+
+std::string Player :: getName()
+{
+    return this->name;
+};
+
+bool Player :: getHasCards()
+{
+    return this->hasCards;
+};
+bool Player :: getIsWinner()
+{
+    return this->isWinner;
+};
+int Player :: getNumOfWins()
+{
+    return this->numOfWins;
+};
+void Player :: setIsWinner(bool isWinner)
+{
+    this->isWinner = isWinner;
+};
+void Player :: setNumOfWins(int numOfWins)
+{
+    this->numOfWins = numOfWins;
+};
+void Player :: setHasCards(bool hasCards)
+{
+    this->hasCards = hasCards;
+};
+void Player :: addNumOfWins()
+{
+    this->numOfWins++;
+};
+
+

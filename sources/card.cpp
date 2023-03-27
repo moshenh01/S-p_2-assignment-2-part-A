@@ -6,17 +6,23 @@ Card::Card(int value, Suit suit){
     {
         throw "Invalid card value";
     }
-   
-    
+    else{
+        this->value = value;
+        this->suit = suit;
+
+    }
    
 };
 
 Card :: Card(){
-    
+    this->value = 0;
+    this->suit = HEARTS;
 };
+    
+
 
 int Card::getValue(){
-    return 0;
+    return this->value;
 };
 
 Card::Suit Card::getSuit(){
@@ -37,6 +43,8 @@ std::string Card :: getSuitString(Suit suit) {
             return "";
     }
 }
+
+
 void Card :: printCard(){
     std::string str = " ";
     switch (this->value){
@@ -58,3 +66,19 @@ void Card :: printCard(){
     }
     std::cout << str << " of " << getSuitString(this->suit) << std::endl;
 }
+
+std::string Card :: strValue(){
+
+  switch(this->value){
+                    case 14:
+                        return "Ace";
+                    case 11:
+                        return "Jack";
+                    case 12:
+                        return "Queen";
+                    case 13:
+                        return "King";
+                    default:
+                        return std::to_string(value);
+                }
+            }

@@ -8,10 +8,10 @@ namespace ariel{
     class Card{
         public:
         enum Suit{
-            HEARTS,
+            CLUBS,
             DIAMONDS,
-            SPADES,
-            CLUBS
+            HEARTS,
+            SPADES
         };
         private:
             int value;
@@ -22,9 +22,24 @@ namespace ariel{
             Card();
             int getValue();
             Suit getSuit();
-            void setValue(int value);
             std::string getSuitString(Suit suit);
             void printCard();
+            std::string strValue();
+              
+            static std::string strSuit(Suit suit){
+                switch(suit) {
+                    case HEARTS:
+                        return "Hearts";
+                    case DIAMONDS:
+                        return "Diamonds";
+                    case SPADES:
+                        return "Spades";
+                    case CLUBS:
+                        return "Clubs";
+                    default:
+                        return "";
+                }
+            }
     };
 }
 #endif // CARD_HPP
