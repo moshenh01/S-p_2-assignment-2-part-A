@@ -24,7 +24,7 @@
         Player(string name);
         int stacksize();
         int cardesTaken();
-        void addCard(const Card card);
+        void addCard(const Card& card);
         void addTakenCard(const Card& card);
         Card getTopCard();
         string getName();

@@ -31,7 +31,7 @@ int Player :: cardesTaken()
 
 
 
-void Player :: addCard( Card card)
+void Player :: addCard(const Card& card)
 {
     this->handCards.push_back(card);
 };
@@ -51,6 +51,10 @@ Card Player :: getTopCard()
         Card card = this->handCards.back();
         this->handCards.pop_back();
         return card; 
+    }
+    else if(this->handCards.size() == 0)
+    {
+       throw std::runtime_error ("No cards in hand!");
     }
     else{
         Card card = this->handCards.back();

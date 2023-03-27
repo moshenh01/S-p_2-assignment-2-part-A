@@ -21,8 +21,8 @@ using namespace ariel;
         void addLog(string log);
         void playWar(vector<Card> pile1,vector<Card> pile2,Player& p1,Player& p2);
         void caseAceAndTwo(Card p1Card, Card p2Card);
-        
-
+        void determinesWinner(Player& player1, Player& player2);
+        bool getIsDraw();
         
 
         private:
@@ -30,6 +30,7 @@ using namespace ariel;
         Player& player2;
         vector<std::string> log;
         int drawRate;
+        bool isDraw;
     };
 
 

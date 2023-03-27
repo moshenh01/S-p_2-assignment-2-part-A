@@ -4,6 +4,7 @@
 #include <random>
 #include "game.hpp"
 #include "player.hpp"
+#include <exception>
 
 using namespace std;
 void dealingCards(Player& player1, Player& player2);
@@ -23,6 +24,7 @@ Game :: Game(Player& p1, Player& p2): player1(p1), player2(p2) //this->player is
     player2.setHasCards(true);
     this->log = vector<string>();
     this->drawRate = 0;
+    this->isDraw = false;
    
 };
 void Game :: caseAceAndTwo(Card p1Card, Card p2Card)
@@ -175,8 +177,8 @@ void Game :: playTurn()
         }
     }
     else{
-        if(player1.getIsWinner() || player2.getIsWinner()){
-            throw "Game is over!";
+        if(player1.getIsWinner() || player2.getIsWinner() || this->isDraw){
+            throw std::runtime_error("Game is over!");
         }
         determinesWinner(player1,player2);
     }
@@ -185,7 +187,7 @@ void Game :: playTurn()
     
 };
 
-void determinesWinner(Player& player1, Player& player2)
+void Game:: determinesWinner(Player& player1, Player& player2)
 {
     if(player1.cardesTaken() > player2.cardesTaken()){
         player1.setIsWinner(true);
@@ -196,7 +198,8 @@ void determinesWinner(Player& player1, Player& player2)
         //cout << "\n" << player2.getName() << " is the winner!" << endl;
     }
     else{
-        cout << "Draw!\n" << endl;
+        this->isDraw = true;
+        //cout << "Draw!\n" << endl;
     }
 };
 
@@ -316,13 +319,20 @@ void Game :: printLastTurn()
 
 void Game :: playAll()
 {
-    if(player1.getIsWinner() || player2.getIsWinner()){
-            throw "Game is over!";
+    if(player1.getIsWinner() || player2.getIsWinner() || this->isDraw){
+            throw std :: runtime_error("Game is over!*");
     }
+    
     while(player1.getHasCards() && player2.getHasCards()){
+
         playTurn();
+        
     }
+   
     playTurn();
+    //playTurn();
+   // playTurn();
+    //playTurn();
     
 };
 
@@ -338,7 +348,7 @@ void Game :: printWiner()
     }
     else
     {
-        cout << "Draw!\n" << endl;
+        cout << "Game ends in Draw!\n" << endl;
     }
     
    
@@ -369,4 +379,8 @@ void Game :: printStats()
    
     
 }; 
+bool Game :: getIsDraw()
+{
+    return this->isDraw;
+};
 
