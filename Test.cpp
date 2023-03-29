@@ -31,6 +31,7 @@ TEST_CASE("Test Player") {
     CHECK(c1.getSuit() == Card::HEARTS);
     CHECK(p3.stacksize() == 0);
     CHECK(c1.getSuitString(c1.getSuit()) == "Hearts");
+    CHECK_THROWS(p3.getTopCard());
    
 }
 
@@ -47,13 +48,15 @@ TEST_CASE("Test While playing") {
     CHECK(p1.stacksize() == 25);
     CHECK(p2.stacksize() == 25);
     CHECK(((p1.cardesTaken() == 1) || (p2.cardesTaken() == 1)));
+    CHECK_THROWS(g.printWiner());
     
     //or
     
     g.playAll();
     //when the game is over there is one of three options...
     CHECK((p1.getIsWinner() || p2.getIsWinner()|| g.getIsDraw()));
-    CHECK_THROWS(g.playTurn());
+    //
+    //CHECK_THROWS(g.playTurn());
 
     CHECK((p1.stacksize() == 0 && p2.stacksize() == 0));
     
@@ -61,6 +64,12 @@ TEST_CASE("Test While playing") {
     CHECK_THROWS(g.playAll());
 
     //i did test only for the commned you wrote in demo
+    SUBCASE("playrers are the same"){
+        Player p3("alice");
+        
+        CHECK_THROWS(Game (p3, p3));
+        CHECK_THROWS_AS_MESSAGE(Game (p3, p3), std::runtime_error, "players are the same");
+    }
 
     
 }

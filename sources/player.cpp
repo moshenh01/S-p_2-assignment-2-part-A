@@ -31,7 +31,7 @@ int Player :: cardesTaken()
 
 
 
-void Player :: addCard(const Card& card)
+void Player :: addCard(const Card& card)//card is a const reference so it can't be changed
 {
     this->handCards.push_back(card);
 };

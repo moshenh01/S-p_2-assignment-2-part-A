@@ -19,7 +19,7 @@ namespace ariel{
 
         public:
             Card(int value, Suit suit);
-            Card();
+            
             int getValue();
             Suit getSuit();
             std::string getSuitString(Suit suit);

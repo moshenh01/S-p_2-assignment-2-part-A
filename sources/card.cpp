@@ -14,12 +14,6 @@ Card::Card(int value, Suit suit){
    
 };
 
-Card :: Card(){
-    this->value = 0;
-    this->suit = HEARTS;
-};
-    
-
 
 int Card::getValue(){
     return this->value;

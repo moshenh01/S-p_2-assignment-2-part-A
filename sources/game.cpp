@@ -8,15 +8,15 @@
 
 using namespace std;
 void dealingCards(Player& player1, Player& player2);
-void determinesWinner(Player& player1, Player& player2);
-
-
 
 
 Game :: Game(Player& p1, Player& p2): player1(p1), player2(p2) //this->player is pointer to the Player object
 {
-    //  this->player1 = p1;
-    //  this->player2 = p2;
+    //compare the addresses of the players
+    if (&p1 == &p2)
+    {
+        throw std::runtime_error ("Players can't be the same!");
+    }
     
     dealingCards(p1, p2);
     
@@ -108,11 +108,11 @@ void Game :: playTurn()
         // Get top card from each player's hand
         Card p1Card = player1.getTopCard();
         Card p2Card = player2.getTopCard();
-
-         
         
+        // Get the value of each card
         int val1 = p1Card.getValue();
         int val2 = p2Card.getValue();
+
         // Determine winner of the turn
         if(((val1 == 2) && (val2 == 14)) || ((val1 ==14) && (val2 == 2))){
             caseAceAndTwo(p1Card, p2Card);
@@ -177,8 +177,11 @@ void Game :: playTurn()
         }
     }
     else{
+        //in case that in the first 5 turns the game end we can replace the throw with return
+        //or we can add try catch in the main.
         if(player1.getIsWinner() || player2.getIsWinner() || this->isDraw){
-            throw std::runtime_error("Game is over!");
+            //throw std::runtime_error("Game is over!");
+            return;
         }
         determinesWinner(player1,player2);
     }
@@ -328,16 +331,17 @@ void Game :: playAll()
         playTurn();
         
     }
-   
+    //for deteminig the winner
     playTurn();
-    //playTurn();
-   // playTurn();
-    //playTurn();
+   
     
 };
 
 void Game :: printWiner()
 {
+    if(!player1.getIsWinner() && !player2.getIsWinner() && !this->isDraw){
+        throw std :: runtime_error("Game is NOT over!*");
+    }
     if (player1.getIsWinner())
     {
          cout<< player1.getName() << " is the winner in the Game!\n" << endl; 
